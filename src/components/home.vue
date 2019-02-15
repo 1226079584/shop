@@ -23,20 +23,14 @@
     <el-container>
       <!-- 侧边导航 -->
       <el-aside width="200px" class="aside">
-        <el-menu
-          default-active="2"
-          class="el-menu-vertical-demo"
-          @open="handleOpen"
-          @close="handleClose"
-          unique-opened
-        >
+        <el-menu default-active="1" class="el-menu-vertical-demo" unique-opened router>
           <!-- 用户管理 -->
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-location"></i>
               <span>用户管理</span>
             </template>
-            <el-menu-item index="1-1">
+            <el-menu-item index="user">
               <i class="el-icon-menu"></i>
               用户列表
             </el-menu-item>
@@ -99,35 +93,33 @@
           </el-submenu>
         </el-menu>
       </el-aside>
-      <el-main class="main">Main</el-main>
+      <el-main class="main">
+        <router-view></router-view>
+      </el-main>
     </el-container>
   </el-container>
 </template>
 
 <script>
 export default {
-    beforeMount() {
-        if(!localStorage.getItem('token')){
-            this.$router.push({
-                name: 'login'
-            })
-        }
-    },
-    methods: {
-        loginout() {
-            localStorage.clear()
-            this.$router.push({
-                name: "login"
-            })
-        },
-        handleOpen(){
-            console.log(123)
-        },
-        handleClose() {
-            console.log(456)
-        }
+  beforeMount () {
+    if (!localStorage.getItem('token')) {
+      this.$router.push({
+        name: 'login'
+      })
     }
-};
+  },
+  methods: {
+    // 退出登录
+    loginout () {
+      localStorage.clear()
+      this.$router.push({
+        name: 'login'
+      })
+      this.$message.warning('退出成功')
+    }
+  }
+}
 </script>
 
 <style>
