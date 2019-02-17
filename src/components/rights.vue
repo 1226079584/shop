@@ -24,29 +24,29 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       tableData: []
-    };
+    }
   },
-  created() {
-      this.getTableData()
+  created () {
+    this.getTableData()
   },
   methods: {
-      handleCurrentChange(val) {
-          // console.log(val)
-      },
-      //获取数据
-      async getTableData() {
-          const res = await this.$axios.get(`rights/list`)
-          // console.log(res)
-          const {data,meta} = res.data
-          if(meta.status === 200) {
-              this.tableData = data
-          }
+    handleCurrentChange (val) {
+      // console.log(val)
+    },
+    // 获取数据
+    async getTableData () {
+      const res = await this.$axios.get(`rights/list`)
+      // console.log(res)
+      const {data, meta} = res.data
+      if (meta.status === 200) {
+        this.tableData = data
       }
+    }
   }
-};
+}
 </script>
 
 <style>
