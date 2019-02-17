@@ -1,11 +1,12 @@
 <template>
   <el-card class="content">
     <!-- 面包屑导航 -->
-    <el-breadcrumb separator="/">
+    <!-- <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>用户管理</el-breadcrumb-item>
       <el-breadcrumb-item>用户列表</el-breadcrumb-item>
-    </el-breadcrumb>
+    </el-breadcrumb> -->
+    <breadcrumb data1="用户管理" data2="用户列表"></breadcrumb>
     <!-- 搜索 -->
     <el-row class="searchBox">
       <el-col>
@@ -126,9 +127,9 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
-      query: "",
+      query: '',
       tableData: [],
       pagenum: 1,
       pagesize: 2,
@@ -138,163 +139,163 @@ export default {
       dialogFormVisibleBoy: false,
       roles: [],
       selectVal: -1,
-      //添加用户请求体
+      // 添加用户请求体
       formdata: {
-        username: "",
-        password: "",
-        email: "",
-        mobile: ""
+        username: '',
+        password: '',
+        email: '',
+        mobile: ''
       },
       currUser: '',
       currUserId: -1
-    };
+    }
   },
-  created() {
-    this.getTableData();
+  created () {
+    this.getTableData()
   },
   methods: {
-    //获取列表数据
-    async getTableData() {
-      const AUTH_TOKEN = localStorage.getItem("token");
-      this.$axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
+    // 获取列表数据
+    async getTableData () {
+      // const AUTH_TOKEN = localStorage.getItem('token')
+      // this.$axios.defaults.headers.common['Authorization'] = AUTH_TOKEN
       const res = await this.$axios.get(
         `users?query=${this.query}&pagenum=${this.pagenum}&pagesize=${
           this.pagesize
         }`
-      );
-      const { data, meta } = res.data;
-      //   console.log(data)
+      )
+      console.log(res)
+      const { data, meta } = res.data
       if (meta.status === 200) {
-        this.tableData = data.users;
-        this.total = data.total;
+        this.tableData = data.users
+        this.total = data.total
       }
     },
-    //设置每页多少数据
-    handleSizeChange(val) {
+    // 设置每页多少数据
+    handleSizeChange (val) {
       //   console.log(`每页 ${val} 条`)
-      this.pagesize = val;
-      this.pagenum = 1;
-      this.getTableData();
+      this.pagesize = val
+      this.pagenum = 1
+      this.getTableData()
     },
-    //当前页码
-    handleCurrentChange(val) {
+    // 当前页码
+    handleCurrentChange (val) {
       //   console.log(`当前页: ${val}`)
-      this.pagenum = val;
-      this.getTableData();
+      this.pagenum = val
+      this.getTableData()
     },
-    //搜索用户
-    searchUser() {
-      this.pagenum = 1;
-      this.getTableData();
+    // 搜索用户
+    searchUser () {
+      this.pagenum = 1
+      this.getTableData()
     },
-    //清除文本框内容后
-    getdata() {
-      this.getTableData();
+    // 清除文本框内容后
+    getdata () {
+      this.getTableData()
     },
     // 点击显示添加对话框
-    showdialog() {
-      this.formdata = {};
-      this.dialogFormVisible = true;
+    showdialog () {
+      this.formdata = {}
+      this.dialogFormVisibleadd = true
     },
-    //点击添加用户
-    async sureAdd() {
-      this.dialogFormVisible = false;
-      const res = await this.$axios.post(`users`, this.formdata);
-      const { meta } = res.data;
-      console.log(meta);
+    // 点击添加用户
+    async sureAdd () {
+      this.dialogFormVisible = false
+      const res = await this.$axios.post(`users`, this.formdata)
+      const { meta } = res.data
+      // console.log(meta)
       if (meta.status === 201) {
-        this.getTableData();
-        this.$message.success(meta.msg);
-        this.pagenum = 1;
+        this.getTableData()
+        this.$message.success(meta.msg)
+        this.pagenum = 1
       }
     },
-    //改变用户状态
-    async changeState(user) {
-      console.log(user);
+    // 改变用户状态
+    async changeState (user) {
+      // console.log(user)
       const res = await this.$axios.put(
         `users/${user.id}/state/${user.mg_state}`
-      );
-      const { meta } = res.data;
-      console.log(meta);
+      )
+      const { meta } = res.data
+      // console.log(meta)
       if (meta.status === 200) {
-        this.$message.success("修改成功");
+        this.$message.success('修改成功')
       }
     },
-    //删除用户
-    delUser(user) {
-      this.$confirm("确认删除吗?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
+    // 删除用户
+    delUser (user) {
+      this.$confirm('确认删除吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
       })
         .then(async () => {
-          const res = await this.$axios.delete(`users/${user.id}`);
+          const res = await this.$axios.delete(`users/${user.id}`)
           const {
             meta: { msg, status }
-          } = res.data;
+          } = res.data
           if (status === 200) {
-            this.pagenum = 1;
-            this.$message.success(msg);
-            this.getTableData();
-            this.$message.success(msg);
+            this.pagenum = 1
+            this.$message.success(msg)
+            this.getTableData()
+            this.$message.success(msg)
           }
         })
         .catch(() => {
-          this.$message.info(msg);
-        });
+          this.$message.info('失败')
+        })
     },
-    //点击显示修改对话框
-    async editUser(user) {
-      this.dialogFormVisibleEdit = true;
-      const res = await this.$axios.get(`users/${user.id}`);
-      console.log(res);
-      const { data, meta } = res.data;
+    // 点击显示修改对话框
+    async editUser (user) {
+      this.dialogFormVisibleEdit = true
+      const res = await this.$axios.get(`users/${user.id}`)
+      // console.log(res)
+      const { data, meta } = res.data
       if (meta.status === 200) {
-        this.formdata = data;
+        this.formdata = data
       }
     },
-    //点击确认修改用户信息
-    async sureEdit() {
+    // 点击确认修改用户信息
+    async sureEdit () {
       const res = await this.$axios.put(
         `users/${this.formdata.id}`,
         this.formdata
-      );
+      )
       // console.log(res)
-      const { data, meta } = res.data;
+      const { meta } = res.data
       if (meta.status === 200) {
-        this.dialogFormVisibleEdit = false;
-        this.getTableData();
-        this.$message.success(meta.msg);
+        this.dialogFormVisibleEdit = false
+        this.getTableData()
+        this.$message.success(meta.msg)
       }
     },
-    //点击显示分配对话框
-    async checkBoy(user) {
+    // 点击显示分配对话框
+    async checkBoy (user) {
       this.currUserId = user.id
       this.currUser = user.username
-      this.dialogFormVisibleBoy = true;
-      const res = await this.$axios.get(`roles`);
-      const { data, meta } = res.data;
+      this.dialogFormVisibleBoy = true
+      const res = await this.$axios.get(`roles`)
+      const { data, meta } = res.data
       // console.log(data);
       if (meta.status === 200) {
-        this.roles = data;
+        this.roles = data
       }
 
       const res2 = await this.$axios.get(`users/${user.id}`)
-      console.log(res2)
+      // console.log(res2)
       this.selectVal = res2.data.data.rid
     },
-    //分配
-    async surecheck() {
+    // 分配
+    async surecheck () {
       this.dialogFormVisibleBoy = false
-      const res = await this.$axios.put(`users/${this.currUserId}/role`,{rid: this.selectVal})
-      const {data,meta} = res.data
-      if(meta.status === 200) {
+      const res = await this.$axios.put(`users/${this.currUserId}/role`, {rid: this.selectVal})
+      const {meta} = res.data
+      if (meta.status === 200) {
         this.$message.success(meta.msg)
       }
-      console.log(res)
+      // console.log(res)
     }
   }
-};
+}
 </script>
 
 <style>

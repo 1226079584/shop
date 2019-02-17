@@ -5,17 +5,23 @@ import App from './App'
 import router from './router'
 import elementUi from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import breadcrumb from './components/breadcrumb.vue'
 import '@/assets/css/base.css'
-import axios from 'axios'
+// import axios from 'axios'
 import moment from 'moment'
-axios.defaults.baseURL = 'http://localhost:8888/api/private/v1/'
-Vue.prototype.$axios = axios
-Vue.use(elementUi)
+import httphead from './components/http.js'
+// axios.defaults.baseURL = 'http://localhost:8888/api/private/v1/'
 
 Vue.config.productionTip = false
+
+Vue.use(httphead)
+Vue.use(elementUi)
+
+// Vue.prototype.$axios = axios
 Vue.filter('fmdate', (v) => {
   return moment(v).format('YYYY-MM-DD')
 })
+Vue.component('breadcrumb', breadcrumb)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
