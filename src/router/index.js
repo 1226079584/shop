@@ -5,6 +5,8 @@ import home from '@/components/home.vue'
 import user from '@/components/user.vue'
 import rights from '@/components/rights.vue'
 import roles from '@/components/roleList.vue'
+import goods from '@/components/goods.vue'
+import goodsadd from '@/components/goodsadd.vue'
 Vue.use(Router)
 
 const router = new Router({
@@ -27,6 +29,16 @@ const router = new Router({
         name: 'roles',
         path: '/roles',
         component: roles
+      },
+      {
+        name: 'goods',
+        path: '/goods',
+        component: goods
+      },
+      {
+        name: 'goodsadd',
+        path: '/goodsadd',
+        component: goodsadd
       }]
     },
     {

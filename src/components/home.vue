@@ -67,7 +67,7 @@ export default {
       const {data,meta} = res.data
       if(meta.status === 200) {
         this.data = data
-      console.log(data)
+      // console.log(data)
       }
     },
     // 退出登录
