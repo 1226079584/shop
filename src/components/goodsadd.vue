@@ -1,6 +1,6 @@
 <template>
-  <el-card>
-    <breadcrumb data-1="商品管理" data-2="商品列表"></breadcrumb>
+  <el-card class="box">
+    <breadcrumb data1="商品管理" data2="商品列表"></breadcrumb>
     <el-alert class="tit" title="添加商品信息" type="info" center show-icon :closable="false"></el-alert>
     <!-- 步骤进度条 -->
     <el-steps :active="active-0" align-center finish-status="success">
@@ -229,5 +229,8 @@ export default {
 }
 .add {
   margin-bottom: 20px;
+}
+.box {
+  height: 100%;
 }
 </style>
