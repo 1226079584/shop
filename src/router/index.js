@@ -1,14 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import login from '@/components/login.vue'
-import home from '@/components/home.vue'
-import user from '@/components/user.vue'
-import rights from '@/components/rights.vue'
-import roles from '@/components/roleList.vue'
-import goods from '@/components/goods.vue'
-import goodsadd from '@/components/goodsadd.vue'
-import params from '@/components/params.vue'
-import categories from '@/components/categories.vue'
+// const Foo = () => import('./Foo.vue')
+const login = () => import('@/components/login.vue')
+const home = () => import('@/components/home.vue')
+const user = () => import('@/components/user.vue')
+const rights = () => import('@/components/rights.vue')
+const roles = () => import('@/components/roleList.vue')
+const goods = () => import('@/components/goods.vue')
+const goodsadd = () => import('@/components/goodsadd.vue')
+const params = () => import('@/components/params.vue')
+const categories = () => import('@/components/categories.vue')
+const orders = () => import('@/components/orders.vue')
+const reports = () => import('@/components/reports.vue')
+
 Vue.use(Router)
 
 const router = new Router({
@@ -51,6 +55,16 @@ const router = new Router({
         name: 'categories',
         path: '/categories',
         component: categories
+      },
+      {
+        name: 'orders',
+        path: '/orders',
+        component: orders
+      },
+      {
+        name: 'reports',
+        path: '/reports',
+        component: reports
       }]
     },
     {

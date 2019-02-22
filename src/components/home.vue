@@ -23,7 +23,7 @@
     <el-container>
       <!-- 侧边导航 -->
       <el-aside width="200px" class="aside">
-        <el-menu default-active="1" class="el-menu-vertical-demo" unique-opened router>
+        <el-menu :default-active="$route.name" class="el-menu-vertical-demo" unique-opened router>
           <!-- 用户管理 -->
           <el-submenu  :index="val.order+''" v-for="val in data" :key="val.id">
             <template slot="title">
@@ -87,7 +87,7 @@ export default {
   background-color: #b3c0d1;
 }
 .main {
-  background-color: gray;
+  background-color: #ccc;
 }
 .boxbox {
   height: 100%;

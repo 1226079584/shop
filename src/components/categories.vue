@@ -1,6 +1,6 @@
 <template>
   <el-card>
-    <breadcrumb data-1="商品管理" data-2="商品列表"></breadcrumb>
+    <breadcrumb data1="商品管理" data2="商品列表"></breadcrumb>
     <el-button @click="addCategories()" class="btn" type="primary" plain>添加分类</el-button>
     <!-- 表格 -->
     <el-table :data="checkList" style="width: 100%">
